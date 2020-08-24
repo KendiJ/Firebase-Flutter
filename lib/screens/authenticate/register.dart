@@ -1,25 +1,26 @@
 import 'package:firebase/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
-//Accessing the Anonymous auth function
+class _RegisterState extends State<Register> {
+  //Accessing the Anonymous auth function
   final AuthService _authy = AuthService();
 
   // set the state for text fields
   String email = "";
   String password = "";
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
-        title: Text("Signin to Firebase"),
+        title: Text("Register to Firebase"),
         elevation: 0.0,
         backgroundColor: Colors.brown[400],
       ),
@@ -48,7 +49,7 @@ class _SignInState extends State<SignIn> {
                   print(password);
                 },
                 color: Colors.blue,
-                child: Text('Sign in', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,),),
+                child: Text('Register', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,),),
               )
             ],
           )
