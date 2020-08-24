@@ -2,6 +2,11 @@ import 'package:firebase/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
+
+  final Function toggleView;
+  // add the constructor for the widget
+  SignIn({this.toggleView});
+
   @override
   _SignInState createState() => _SignInState();
 }
@@ -20,6 +25,14 @@ class _SignInState extends State<SignIn> {
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         title: Text("Signin to Firebase"),
+        actions: [
+          FlatButton.icon(
+            onPressed: () {
+              widget.toggleView();
+            }, 
+            icon: Icon(Icons.person), 
+            label: Text("Register"))
+        ],
         elevation: 0.0,
         backgroundColor: Colors.brown[400],
       ),
