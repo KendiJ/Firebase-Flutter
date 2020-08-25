@@ -1,4 +1,6 @@
 import 'package:firebase/services/auth.dart';
+import 'package:firebase/shared/constants.dart';
+import 'package:firebase/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -20,11 +22,12 @@ class _RegisterState extends State<Register> {
   String email = "";
   String password = "";
   String error = "";
+  bool loading = false;
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         title: Text("Register to Firebase"),
@@ -47,6 +50,7 @@ class _RegisterState extends State<Register> {
             children: [
               SizedBox(height: 20),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Enter Email'),
                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
                 onChanged: (val) {
                   setState(() => email = val);
@@ -54,6 +58,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Enter Password'),
                 validator: (val) => val.length <6 ? 'Enter more than 6 characters' : null,
                 obscureText: true,
                 onChanged: (val) {
@@ -64,9 +69,11 @@ class _RegisterState extends State<Register> {
               RaisedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
+                    setState(() => loading = true);
                     dynamic result = await _authy.registerWithEmailAndPassword(email, password);
                     if(result == null) {
-                      setState(() => 'Please enter a valid email');
+                      setState(() => 'Invalid credentials');
+                      loading = false;
                     } // this automatically logs you to home page
                   }
                 },
